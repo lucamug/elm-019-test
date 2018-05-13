@@ -1,4 +1,4 @@
-                     |    exposed   |  view | init | update | subs | cmd | onNavigaton  
+Type                 |    exposed   |  view | init | update | subs | cmd | onNavigaton  
 ---------------------|--------------|-------|------|--------|------|-----|-------------
 Browser.staticPage   |    embed     |   ✓   |      |        |      |     |
 Browser.sandbox      |    embed     |   ✓   |   ✓  |   ✓    |      |     |
