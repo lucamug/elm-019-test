@@ -1,11 +1,11 @@
 I know this is already taken into account for investigation but let me share some more insight. These are, in my understanding, 4 tiers of writing apps in 0.19
 ```
-main =             | exposed js | view | init | update | Cmd/Sub | onNavigation
--------------------|------------|------|------|--------|---------|-------------
-Browser.staticPage | embed      |  ✓   |      |        |         |     
-Browser.sandbox    | embed      |  ✓   |  ✓   |  ✓     |         |     
-Browser.embed      | embed      |  ✓   |  f   |  ✓     |  ✓      |     
-Browser.fullscreen | fullscreen |  P   |  Ef  |  ✓     |  ✓      |  ✓  
+main =    |expos|view|init|updt|Cmd |Nav
+----------|-----|----|----|----|----|---
+staticPage|embed| ✓  |    |    |    |    
+sandbox   |embed| ✓  | ✓  | ✓  |    |    
+embed     |embed| ✓  | f  | ✓  | ✓  |    
+fullscreen|fulls| P  | Ef | ✓  | ✓  | ✓  
 
 f = flags
 P = Browser.Page (title and list of views)
