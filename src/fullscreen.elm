@@ -45,7 +45,7 @@ main =
         , subscriptions = \_ -> Sub.none
         , view =
             \model ->
-                { title = "ciao"
+                { title = ""
                 , body = [ view model ]
                 }
         , update = update
