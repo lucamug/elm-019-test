@@ -1,2 +1,0 @@
-#!/bin/bash
-./elm make src/text.elm --output docs/build/text.js

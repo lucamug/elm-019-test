@@ -1,2 +1,0 @@
-#!/bin/bash
-./elm make src/staticPage.elm --output docs/build/staticPage.js
