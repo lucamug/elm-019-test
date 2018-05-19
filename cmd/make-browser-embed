@@ -1,2 +1,2 @@
 #!/bin/bash
-~/elm make src/text.elm --output docs/build/text.js
+~/elm make src/browser-embed.elm --output docs/build/browser-embed.js

@@ -1,2 +1,2 @@
 #!/bin/bash
-~/elm make src/fullscreen.elm --output docs/build/fullscreen.js
+~/elm make src/browser-fullscreen.elm --output docs/build/browser-fullscreen.js

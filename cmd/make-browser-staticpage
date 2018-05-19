@@ -1,2 +1,2 @@
 #!/bin/bash
-~/elm make src/staticPage.elm --output docs/build/staticPage.js
+~/elm make src/browser-staticpage.elm --output docs/build/browser-staticpage.js

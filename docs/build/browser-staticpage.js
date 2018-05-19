@@ -1857,7 +1857,7 @@ function _Platform_setupIncomingPort(name, sendToApp)
 
 	function send(incomingValue)
 	{
-		var result = A2(_Json_run, converter, _Json_wrap(incomingValue));
+		var result = A2(_Json_run, converter, incomingValue);
 
 		elm_lang$core$Result$isOk(result) || _Error_throw(4, name, result.a);
 
@@ -4081,9 +4081,24 @@ var elm_lang$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	}
 };
 var elm_lang$browser$Browser$staticPage = _Browser_staticPage;
+var elm_lang$html$Html$div = _VirtualDom_node('div');
+var elm_lang$html$Html$h1 = _VirtualDom_node('h1');
 var elm_lang$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm_lang$html$Html$text = elm_lang$virtual_dom$VirtualDom$text;
 var author$project$Main$main = elm_lang$browser$Browser$staticPage(
-	elm_lang$html$Html$text('Hello, World!'));
+	A2(
+		elm_lang$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				elm_lang$html$Html$h1,
+				_List_Nil,
+				_List_fromArray(
+					[
+						elm_lang$html$Html$text('staticPage')
+					])),
+				elm_lang$html$Html$text('Hello, World!')
+			])));
 _Platform_export({'Main':author$project$Main$main(
 	elm_lang$json$Json$Decode$succeed(_Utils_Tuple0))(0)({})});}(this));

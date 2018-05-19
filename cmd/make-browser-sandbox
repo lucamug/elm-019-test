@@ -1,0 +1,2 @@
+#!/bin/bash
+~/elm make src/browser-sandbox.elm --output docs/build/browser-sandbox.js
