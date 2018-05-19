@@ -232,87 +232,6 @@ var _JsArray_appendN = F3(function(n, dest, source)
 
 
 
-var _List_Nil_UNUSED = { $: 0 };
-var _List_Nil = { $: '[]' };
-
-function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
-function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
-
-
-var _List_cons = F2(_List_Cons);
-
-function _List_fromArray(arr)
-{
-	var out = _List_Nil;
-	for (var i = arr.length; i--; )
-	{
-		out = _List_Cons(arr[i], out);
-	}
-	return out;
-}
-
-function _List_toArray(xs)
-{
-	for (var out = []; xs.b; xs = xs.b) // WHILE_CONS
-	{
-		out.push(xs.a);
-	}
-	return out;
-}
-
-var _List_map2 = F3(function(f, xs, ys)
-{
-	for (var arr = []; xs.b && ys.b; xs = xs.b, ys = ys.b) // WHILE_CONSES
-	{
-		arr.push(A2(f, xs.a, ys.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_map3 = F4(function(f, xs, ys, zs)
-{
-	for (var arr = []; xs.b && ys.b && zs.b; xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
-	{
-		arr.push(A3(f, xs.a, ys.a, zs.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_map4 = F5(function(f, ws, xs, ys, zs)
-{
-	for (var arr = []; ws.b && xs.b && ys.b && zs.b; ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
-	{
-		arr.push(A4(f, ws.a, xs.a, ys.a, zs.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_map5 = F6(function(f, vs, ws, xs, ys, zs)
-{
-	for (var arr = []; vs.b && ws.b && xs.b && ys.b && zs.b; vs = vs.b, ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
-	{
-		arr.push(A5(f, vs.a, ws.a, xs.a, ys.a, zs.a));
-	}
-	return _List_fromArray(arr);
-});
-
-var _List_sortBy = F2(function(f, xs)
-{
-	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
-		return _Utils_cmp(f(a), f(b));
-	}));
-});
-
-var _List_sortWith = F2(function(f, xs)
-{
-	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
-		var ord = A2(f, a, b);
-		return ord === elm_lang$core$Basics$EQ ? 0 : ord === elm_lang$core$Basics$LT ? -1 : 1;
-	}));
-});
-
-
-
 // LOG
 
 var _Debug_log_UNUSED = F2(function(tag, value)
@@ -782,6 +701,147 @@ function _Utils_ap(xs, ys)
 
 
 
+var _List_Nil_UNUSED = { $: 0 };
+var _List_Nil = { $: '[]' };
+
+function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
+function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
+
+
+var _List_cons = F2(_List_Cons);
+
+function _List_fromArray(arr)
+{
+	var out = _List_Nil;
+	for (var i = arr.length; i--; )
+	{
+		out = _List_Cons(arr[i], out);
+	}
+	return out;
+}
+
+function _List_toArray(xs)
+{
+	for (var out = []; xs.b; xs = xs.b) // WHILE_CONS
+	{
+		out.push(xs.a);
+	}
+	return out;
+}
+
+var _List_map2 = F3(function(f, xs, ys)
+{
+	for (var arr = []; xs.b && ys.b; xs = xs.b, ys = ys.b) // WHILE_CONSES
+	{
+		arr.push(A2(f, xs.a, ys.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_map3 = F4(function(f, xs, ys, zs)
+{
+	for (var arr = []; xs.b && ys.b && zs.b; xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
+	{
+		arr.push(A3(f, xs.a, ys.a, zs.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_map4 = F5(function(f, ws, xs, ys, zs)
+{
+	for (var arr = []; ws.b && xs.b && ys.b && zs.b; ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
+	{
+		arr.push(A4(f, ws.a, xs.a, ys.a, zs.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_map5 = F6(function(f, vs, ws, xs, ys, zs)
+{
+	for (var arr = []; vs.b && ws.b && xs.b && ys.b && zs.b; vs = vs.b, ws = ws.b, xs = xs.b, ys = ys.b, zs = zs.b) // WHILE_CONSES
+	{
+		arr.push(A5(f, vs.a, ws.a, xs.a, ys.a, zs.a));
+	}
+	return _List_fromArray(arr);
+});
+
+var _List_sortBy = F2(function(f, xs)
+{
+	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
+		return _Utils_cmp(f(a), f(b));
+	}));
+});
+
+var _List_sortWith = F2(function(f, xs)
+{
+	return _List_fromArray(_List_toArray(xs).sort(function(a, b) {
+		var ord = A2(f, a, b);
+		return ord === elm_lang$core$Basics$EQ ? 0 : ord === elm_lang$core$Basics$LT ? -1 : 1;
+	}));
+});
+
+
+
+// MATH
+
+var _Basics_add = F2(function(a, b) { return a + b; });
+var _Basics_sub = F2(function(a, b) { return a - b; });
+var _Basics_mul = F2(function(a, b) { return a * b; });
+var _Basics_fdiv = F2(function(a, b) { return a / b; });
+var _Basics_idiv = F2(function(a, b) { return (a / b) | 0; });
+var _Basics_pow = F2(Math.pow);
+
+var _Basics_remainderBy = F2(function(b, a) { return a % b; });
+
+// https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
+var _Basics_modBy = F2(function(modulus, x)
+{
+	var answer = x % modulus;
+	return modulus === 0
+		? _Error_throw(11)
+		:
+	((answer > 0 && modulus < 0) || (answer < 0 && modulus > 0))
+		? answer + modulus
+		: answer;
+});
+
+
+// TRIGONOMETRY
+
+var _Basics_pi = Math.PI;
+var _Basics_e = Math.E;
+var _Basics_cos = Math.cos;
+var _Basics_sin = Math.sin;
+var _Basics_tan = Math.tan;
+var _Basics_acos = Math.acos;
+var _Basics_asin = Math.asin;
+var _Basics_atan = Math.atan;
+var _Basics_atan2 = F2(Math.atan2);
+
+
+// MORE MATH
+
+function _Basics_toFloat(x) { return x; }
+function _Basics_truncate(n) { return n | 0; }
+function _Basics_isInfinite(n) { return n === Infinity || n === -Infinity; }
+
+var _Basics_ceiling = Math.ceil;
+var _Basics_floor = Math.floor;
+var _Basics_round = Math.round;
+var _Basics_sqrt = Math.sqrt;
+var _Basics_log = Math.log;
+var _Basics_isNaN = isNaN;
+
+
+// BOOLEANS
+
+function _Basics_not(bool) { return !bool; }
+var _Basics_and = F2(function(a, b) { return a && b; });
+var _Basics_or  = F2(function(a, b) { return a || b; });
+var _Basics_xor = F2(function(a, b) { return a !== b; });
+
+
+
 var _String_cons = F2(function(chr, str)
 {
 	return chr + str;
@@ -1113,66 +1173,6 @@ function _String_fromList(chars)
 	return _List_toArray(chars).join('');
 }
 
-
-
-
-// MATH
-
-var _Basics_add = F2(function(a, b) { return a + b; });
-var _Basics_sub = F2(function(a, b) { return a - b; });
-var _Basics_mul = F2(function(a, b) { return a * b; });
-var _Basics_fdiv = F2(function(a, b) { return a / b; });
-var _Basics_idiv = F2(function(a, b) { return (a / b) | 0; });
-var _Basics_pow = F2(Math.pow);
-
-var _Basics_remainderBy = F2(function(b, a) { return a % b; });
-
-// https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/divmodnote-letter.pdf
-var _Basics_modBy = F2(function(modulus, x)
-{
-	var answer = x % modulus;
-	return modulus === 0
-		? _Error_throw(11)
-		:
-	((answer > 0 && modulus < 0) || (answer < 0 && modulus > 0))
-		? answer + modulus
-		: answer;
-});
-
-
-// TRIGONOMETRY
-
-var _Basics_pi = Math.PI;
-var _Basics_e = Math.E;
-var _Basics_cos = Math.cos;
-var _Basics_sin = Math.sin;
-var _Basics_tan = Math.tan;
-var _Basics_acos = Math.acos;
-var _Basics_asin = Math.asin;
-var _Basics_atan = Math.atan;
-var _Basics_atan2 = F2(Math.atan2);
-
-
-// MORE MATH
-
-function _Basics_toFloat(x) { return x; }
-function _Basics_truncate(n) { return n | 0; }
-function _Basics_isInfinite(n) { return n === Infinity || n === -Infinity; }
-
-var _Basics_ceiling = Math.ceil;
-var _Basics_floor = Math.floor;
-var _Basics_round = Math.round;
-var _Basics_sqrt = Math.sqrt;
-var _Basics_log = Math.log;
-var _Basics_isNaN = isNaN;
-
-
-// BOOLEANS
-
-function _Basics_not(bool) { return !bool; }
-var _Basics_and = F2(function(a, b) { return a && b; });
-var _Basics_or  = F2(function(a, b) { return a || b; });
-var _Basics_xor = F2(function(a, b) { return a !== b; });
 
 
 
@@ -4125,7 +4125,19 @@ function _Url_percentDecode(string)
 	{
 		return elm_lang$core$Maybe$Nothing;
 	}
-}var elm_lang$core$Maybe$Nothing = {$: 'Nothing'};
+}var author$project$Main$Docs = F2(
+	function (name, value) {
+		return {name: name, value: value};
+	});
+var elm_lang$core$Basics$identity = function (x) {
+	return x;
+};
+var elm_lang$core$Basics$apL = F2(
+	function (f, x) {
+		return f(x);
+	});
+var elm_lang$core$Basics$EQ = {$: 'EQ'};
+var elm_lang$core$Basics$LT = {$: 'LT'};
 var elm_lang$core$Elm$JsArray$foldr = _JsArray_foldr;
 var elm_lang$core$Array$foldr = F3(
 	function (func, baseCase, _n0) {
@@ -4147,8 +4159,6 @@ var elm_lang$core$Array$foldr = F3(
 			A3(elm_lang$core$Elm$JsArray$foldr, func, baseCase, tail),
 			tree);
 	});
-var elm_lang$core$Basics$EQ = {$: 'EQ'};
-var elm_lang$core$Basics$LT = {$: 'LT'};
 var elm_lang$core$List$cons = _List_cons;
 var elm_lang$core$Array$toList = function (array) {
 	return A3(elm_lang$core$Array$foldr, elm_lang$core$List$cons, _List_Nil, array);
@@ -4206,10 +4216,233 @@ var elm_lang$core$Set$toList = function (_n0) {
 	var dict = _n0.a;
 	return elm_lang$core$Dict$keys(dict);
 };
-var elm_lang$core$Basics$lt = _Utils_lt;
+var elm_lang$url$Url$Parser$Parser = function (a) {
+	return {$: 'Parser', a: a};
+};
+var elm_lang$url$Url$Parser$State = F5(
+	function (visited, unvisited, params, frag, value) {
+		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
+	});
+var elm_lang$url$Url$Parser$fragment = function (toFrag) {
+	return elm_lang$url$Url$Parser$Parser(
+		function (_n0) {
+			var visited = _n0.visited;
+			var unvisited = _n0.unvisited;
+			var params = _n0.params;
+			var frag = _n0.frag;
+			var value = _n0.value;
+			return _List_fromArray(
+				[
+					A5(
+					elm_lang$url$Url$Parser$State,
+					visited,
+					unvisited,
+					params,
+					frag,
+					value(
+						toFrag(frag)))
+				]);
+		});
+};
+var elm_lang$core$Basics$add = _Basics_add;
+var elm_lang$core$Basics$gt = _Utils_gt;
+var elm_lang$core$List$foldl = F3(
+	function (func, acc, list) {
+		foldl:
+		while (true) {
+			if (!list.b) {
+				return acc;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				var $temp$func = func,
+					$temp$acc = A2(func, x, acc),
+					$temp$list = xs;
+				func = $temp$func;
+				acc = $temp$acc;
+				list = $temp$list;
+				continue foldl;
+			}
+		}
+	});
+var elm_lang$core$List$reverse = function (list) {
+	return A3(elm_lang$core$List$foldl, elm_lang$core$List$cons, _List_Nil, list);
+};
+var elm_lang$core$List$foldrHelper = F4(
+	function (fn, acc, ctr, ls) {
+		if (!ls.b) {
+			return acc;
+		} else {
+			var a = ls.a;
+			var r1 = ls.b;
+			if (!r1.b) {
+				return A2(fn, a, acc);
+			} else {
+				var b = r1.a;
+				var r2 = r1.b;
+				if (!r2.b) {
+					return A2(
+						fn,
+						a,
+						A2(fn, b, acc));
+				} else {
+					var c = r2.a;
+					var r3 = r2.b;
+					if (!r3.b) {
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(fn, c, acc)));
+					} else {
+						var d = r3.a;
+						var r4 = r3.b;
+						var res = (ctr > 500) ? A3(
+							elm_lang$core$List$foldl,
+							fn,
+							acc,
+							elm_lang$core$List$reverse(r4)) : A4(elm_lang$core$List$foldrHelper, fn, acc, ctr + 1, r4);
+						return A2(
+							fn,
+							a,
+							A2(
+								fn,
+								b,
+								A2(
+									fn,
+									c,
+									A2(fn, d, res))));
+					}
+				}
+			}
+		}
+	});
+var elm_lang$core$List$foldr = F3(
+	function (fn, acc, ls) {
+		return A4(elm_lang$core$List$foldrHelper, fn, acc, 0, ls);
+	});
+var elm_lang$core$List$map = F2(
+	function (f, xs) {
+		return A3(
+			elm_lang$core$List$foldr,
+			F2(
+				function (x, acc) {
+					return A2(
+						elm_lang$core$List$cons,
+						f(x),
+						acc);
+				}),
+			_List_Nil,
+			xs);
+	});
+var elm_lang$url$Url$Parser$mapState = F2(
+	function (func, _n0) {
+		var visited = _n0.visited;
+		var unvisited = _n0.unvisited;
+		var params = _n0.params;
+		var frag = _n0.frag;
+		var value = _n0.value;
+		return A5(
+			elm_lang$url$Url$Parser$State,
+			visited,
+			unvisited,
+			params,
+			frag,
+			func(value));
+	});
+var elm_lang$url$Url$Parser$map = F2(
+	function (subValue, _n0) {
+		var parseArg = _n0.a;
+		return elm_lang$url$Url$Parser$Parser(
+			function (_n1) {
+				var visited = _n1.visited;
+				var unvisited = _n1.unvisited;
+				var params = _n1.params;
+				var frag = _n1.frag;
+				var value = _n1.value;
+				return A2(
+					elm_lang$core$List$map,
+					elm_lang$url$Url$Parser$mapState(value),
+					parseArg(
+						A5(elm_lang$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
+			});
+	});
+var elm_lang$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3(elm_lang$core$List$foldr, elm_lang$core$List$cons, ys, xs);
+		}
+	});
+var elm_lang$core$List$concat = function (lists) {
+	return A3(elm_lang$core$List$foldr, elm_lang$core$List$append, _List_Nil, lists);
+};
+var elm_lang$core$List$concatMap = F2(
+	function (f, list) {
+		return elm_lang$core$List$concat(
+			A2(elm_lang$core$List$map, f, list));
+	});
+var elm_lang$url$Url$Parser$slash = F2(
+	function (_n0, _n1) {
+		var parseBefore = _n0.a;
+		var parseAfter = _n1.a;
+		return elm_lang$url$Url$Parser$Parser(
+			function (state) {
+				return A2(
+					elm_lang$core$List$concatMap,
+					parseAfter,
+					parseBefore(state));
+			});
+	});
 var elm_lang$core$Maybe$Just = function (a) {
 	return {$: 'Just', a: a};
 };
+var elm_lang$url$Url$Parser$custom = F2(
+	function (tipe, stringToSomething) {
+		return elm_lang$url$Url$Parser$Parser(
+			function (_n0) {
+				var visited = _n0.visited;
+				var unvisited = _n0.unvisited;
+				var params = _n0.params;
+				var frag = _n0.frag;
+				var value = _n0.value;
+				if (!unvisited.b) {
+					return _List_Nil;
+				} else {
+					var next = unvisited.a;
+					var rest = unvisited.b;
+					var _n2 = stringToSomething(next);
+					if (_n2.$ === 'Just') {
+						var nextValue = _n2.a;
+						return _List_fromArray(
+							[
+								A5(
+								elm_lang$url$Url$Parser$State,
+								A2(elm_lang$core$List$cons, next, visited),
+								rest,
+								params,
+								frag,
+								value(nextValue))
+							]);
+					} else {
+						return _List_Nil;
+					}
+				}
+			});
+	});
+var elm_lang$url$Url$Parser$string = A2(elm_lang$url$Url$Parser$custom, 'STRING', elm_lang$core$Maybe$Just);
+var author$project$Main$docs = A2(
+	elm_lang$url$Url$Parser$map,
+	author$project$Main$Docs,
+	A2(
+		elm_lang$url$Url$Parser$slash,
+		elm_lang$url$Url$Parser$string,
+		elm_lang$url$Url$Parser$fragment(elm_lang$core$Basics$identity)));
+var elm_lang$core$Maybe$Nothing = {$: 'Nothing'};
+var elm_lang$core$Basics$lt = _Utils_lt;
 var elm_lang$core$String$length = _String_length;
 var elm_lang$core$String$slice = _String_slice;
 var elm_lang$core$String$dropLeft = F2(
@@ -4223,7 +4456,6 @@ var elm_lang$core$String$dropLeft = F2(
 var elm_lang$core$String$startsWith = _String_startsWith;
 var elm_lang$url$Url$Parser$Http = {$: 'Http'};
 var elm_lang$url$Url$Parser$Https = {$: 'Https'};
-var elm_lang$core$Basics$add = _Basics_add;
 var elm_lang$core$String$indexes = _String_indexes;
 var elm_lang$core$Basics$eq = _Utils_equal;
 var elm_lang$core$String$isEmpty = function (string) {
@@ -4232,10 +4464,6 @@ var elm_lang$core$String$isEmpty = function (string) {
 var elm_lang$core$String$left = F2(
 	function (n, string) {
 		return (n < 1) ? '' : A3(elm_lang$core$String$slice, 0, n, string);
-	});
-var elm_lang$core$Basics$apL = F2(
-	function (f, x) {
-		return f(x);
 	});
 var elm_lang$core$Basics$or = _Basics_or;
 var elm_lang$core$String$contains = _String_contains;
@@ -4347,309 +4575,6 @@ var elm_lang$url$Url$Parser$toUrl = function (str) {
 		A2(elm_lang$core$String$dropLeft, 8, str)) : elm_lang$core$Maybe$Nothing);
 };
 var author$project$Main$maybeMyUrl = elm_lang$url$Url$Parser$toUrl('http://example.com/page/#a/b/c');
-var author$project$Main$Docs = F3(
-	function (name1, value1, value2) {
-		return {name1: name1, value1: value1, value2: value2};
-	});
-var author$project$Main$Page = {$: 'Page'};
-var elm_lang$core$Basics$identity = function (x) {
-	return x;
-};
-var elm_lang$core$Basics$gt = _Utils_gt;
-var elm_lang$core$List$foldl = F3(
-	function (func, acc, list) {
-		foldl:
-		while (true) {
-			if (!list.b) {
-				return acc;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				var $temp$func = func,
-					$temp$acc = A2(func, x, acc),
-					$temp$list = xs;
-				func = $temp$func;
-				acc = $temp$acc;
-				list = $temp$list;
-				continue foldl;
-			}
-		}
-	});
-var elm_lang$core$List$reverse = function (list) {
-	return A3(elm_lang$core$List$foldl, elm_lang$core$List$cons, _List_Nil, list);
-};
-var elm_lang$core$List$foldrHelper = F4(
-	function (fn, acc, ctr, ls) {
-		if (!ls.b) {
-			return acc;
-		} else {
-			var a = ls.a;
-			var r1 = ls.b;
-			if (!r1.b) {
-				return A2(fn, a, acc);
-			} else {
-				var b = r1.a;
-				var r2 = r1.b;
-				if (!r2.b) {
-					return A2(
-						fn,
-						a,
-						A2(fn, b, acc));
-				} else {
-					var c = r2.a;
-					var r3 = r2.b;
-					if (!r3.b) {
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(fn, c, acc)));
-					} else {
-						var d = r3.a;
-						var r4 = r3.b;
-						var res = (ctr > 500) ? A3(
-							elm_lang$core$List$foldl,
-							fn,
-							acc,
-							elm_lang$core$List$reverse(r4)) : A4(elm_lang$core$List$foldrHelper, fn, acc, ctr + 1, r4);
-						return A2(
-							fn,
-							a,
-							A2(
-								fn,
-								b,
-								A2(
-									fn,
-									c,
-									A2(fn, d, res))));
-					}
-				}
-			}
-		}
-	});
-var elm_lang$core$List$foldr = F3(
-	function (fn, acc, ls) {
-		return A4(elm_lang$core$List$foldrHelper, fn, acc, 0, ls);
-	});
-var elm_lang$core$List$map = F2(
-	function (f, xs) {
-		return A3(
-			elm_lang$core$List$foldr,
-			F2(
-				function (x, acc) {
-					return A2(
-						elm_lang$core$List$cons,
-						f(x),
-						acc);
-				}),
-			_List_Nil,
-			xs);
-	});
-var elm_lang$url$Url$Parser$Parser = function (a) {
-	return {$: 'Parser', a: a};
-};
-var elm_lang$url$Url$Parser$State = F5(
-	function (visited, unvisited, params, frag, value) {
-		return {frag: frag, params: params, unvisited: unvisited, value: value, visited: visited};
-	});
-var elm_lang$url$Url$Parser$mapState = F2(
-	function (func, _n0) {
-		var visited = _n0.visited;
-		var unvisited = _n0.unvisited;
-		var params = _n0.params;
-		var frag = _n0.frag;
-		var value = _n0.value;
-		return A5(
-			elm_lang$url$Url$Parser$State,
-			visited,
-			unvisited,
-			params,
-			frag,
-			func(value));
-	});
-var elm_lang$url$Url$Parser$map = F2(
-	function (subValue, _n0) {
-		var parseArg = _n0.a;
-		return elm_lang$url$Url$Parser$Parser(
-			function (_n1) {
-				var visited = _n1.visited;
-				var unvisited = _n1.unvisited;
-				var params = _n1.params;
-				var frag = _n1.frag;
-				var value = _n1.value;
-				return A2(
-					elm_lang$core$List$map,
-					elm_lang$url$Url$Parser$mapState(value),
-					parseArg(
-						A5(elm_lang$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
-			});
-	});
-var elm_lang$url$Url$Parser$s = function (str) {
-	return elm_lang$url$Url$Parser$Parser(
-		function (_n0) {
-			var visited = _n0.visited;
-			var unvisited = _n0.unvisited;
-			var params = _n0.params;
-			var frag = _n0.frag;
-			var value = _n0.value;
-			if (!unvisited.b) {
-				return _List_Nil;
-			} else {
-				var next = unvisited.a;
-				var rest = unvisited.b;
-				return _Utils_eq(next, str) ? _List_fromArray(
-					[
-						A5(
-						elm_lang$url$Url$Parser$State,
-						A2(elm_lang$core$List$cons, next, visited),
-						rest,
-						params,
-						frag,
-						value)
-					]) : _List_Nil;
-			}
-		});
-};
-var author$project$Main$parse3 = A2(
-	elm_lang$url$Url$Parser$map,
-	author$project$Main$Page,
-	elm_lang$url$Url$Parser$s('page'));
-var elm_lang$core$Debug$log = _Debug_log;
-var author$project$Main$whatIsThis = function (a) {
-	var _n0 = A2(elm_lang$core$Debug$log, 'xxx', a);
-	if (a.$ === 'Nothing') {
-		return elm_lang$core$Maybe$Nothing;
-	} else {
-		var b = a.a;
-		return elm_lang$core$Maybe$Just(b);
-	}
-};
-var elm_lang$url$Url$Parser$fragment = function (toFrag) {
-	return elm_lang$url$Url$Parser$Parser(
-		function (_n0) {
-			var visited = _n0.visited;
-			var unvisited = _n0.unvisited;
-			var params = _n0.params;
-			var frag = _n0.frag;
-			var value = _n0.value;
-			return _List_fromArray(
-				[
-					A5(
-					elm_lang$url$Url$Parser$State,
-					visited,
-					unvisited,
-					params,
-					frag,
-					value(
-						toFrag(frag)))
-				]);
-		});
-};
-var author$project$Main$parse5 = elm_lang$url$Url$Parser$fragment(author$project$Main$whatIsThis);
-var elm_lang$core$List$append = F2(
-	function (xs, ys) {
-		if (!ys.b) {
-			return xs;
-		} else {
-			return A3(elm_lang$core$List$foldr, elm_lang$core$List$cons, ys, xs);
-		}
-	});
-var elm_lang$core$List$concat = function (lists) {
-	return A3(elm_lang$core$List$foldr, elm_lang$core$List$append, _List_Nil, lists);
-};
-var elm_lang$core$List$concatMap = F2(
-	function (f, list) {
-		return elm_lang$core$List$concat(
-			A2(elm_lang$core$List$map, f, list));
-	});
-var elm_lang$url$Url$Parser$oneOf = function (parsers) {
-	return elm_lang$url$Url$Parser$Parser(
-		function (state) {
-			return A2(
-				elm_lang$core$List$concatMap,
-				function (_n0) {
-					var parser = _n0.a;
-					return parser(state);
-				},
-				parsers);
-		});
-};
-var elm_lang$url$Url$Parser$slash = F2(
-	function (_n0, _n1) {
-		var parseBefore = _n0.a;
-		var parseAfter = _n1.a;
-		return elm_lang$url$Url$Parser$Parser(
-			function (state) {
-				return A2(
-					elm_lang$core$List$concatMap,
-					parseAfter,
-					parseBefore(state));
-			});
-	});
-var author$project$Main$parse1 = elm_lang$url$Url$Parser$oneOf(
-	_List_fromArray(
-		[
-			A2(
-			elm_lang$url$Url$Parser$map,
-			author$project$Main$Docs,
-			A2(
-				elm_lang$url$Url$Parser$slash,
-				author$project$Main$parse3,
-				A2(
-					elm_lang$url$Url$Parser$slash,
-					author$project$Main$parse5,
-					elm_lang$url$Url$Parser$fragment(author$project$Main$whatIsThis))))
-		]));
-var author$project$Main$ThreeLevels = F3(
-	function (a, b, c) {
-		return {$: 'ThreeLevels', a: a, b: b, c: c};
-	});
-var elm_lang$url$Url$Parser$custom = F2(
-	function (tipe, stringToSomething) {
-		return elm_lang$url$Url$Parser$Parser(
-			function (_n0) {
-				var visited = _n0.visited;
-				var unvisited = _n0.unvisited;
-				var params = _n0.params;
-				var frag = _n0.frag;
-				var value = _n0.value;
-				if (!unvisited.b) {
-					return _List_Nil;
-				} else {
-					var next = unvisited.a;
-					var rest = unvisited.b;
-					var _n2 = stringToSomething(next);
-					if (_n2.$ === 'Just') {
-						var nextValue = _n2.a;
-						return _List_fromArray(
-							[
-								A5(
-								elm_lang$url$Url$Parser$State,
-								A2(elm_lang$core$List$cons, next, visited),
-								rest,
-								params,
-								frag,
-								value(nextValue))
-							]);
-					} else {
-						return _List_Nil;
-					}
-				}
-			});
-	});
-var elm_lang$url$Url$Parser$string = A2(elm_lang$url$Url$Parser$custom, 'STRING', elm_lang$core$Maybe$Just);
-var author$project$Main$parse4 = A2(
-	elm_lang$url$Url$Parser$slash,
-	elm_lang$url$Url$Parser$string,
-	A2(elm_lang$url$Url$Parser$slash, elm_lang$url$Url$Parser$string, elm_lang$url$Url$Parser$string));
-var author$project$Main$parse2 = elm_lang$url$Url$Parser$oneOf(
-	_List_fromArray(
-		[
-			author$project$Main$parse3,
-			A2(elm_lang$url$Url$Parser$map, author$project$Main$ThreeLevels, author$project$Main$parse4)
-		]));
 var elm_lang$browser$Browser$NotFound = function (a) {
 	return {$: 'NotFound', a: a};
 };
@@ -4842,6 +4767,7 @@ var elm_lang$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 var elm_lang$browser$Browser$staticPage = _Browser_staticPage;
 var elm_lang$core$Debug$toString = _Debug_toString;
 var elm_lang$html$Html$div = _VirtualDom_node('div');
+var elm_lang$html$Html$h2 = _VirtualDom_node('h2');
 var elm_lang$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm_lang$html$Html$text = elm_lang$virtual_dom$VirtualDom$text;
 var elm_lang$url$Url$Parser$getFirstMatch = function (states) {
@@ -5638,6 +5564,13 @@ var author$project$Main$main = elm_lang$browser$Browser$staticPage(
 				_List_fromArray(
 					[
 						A2(
+						elm_lang$html$Html$h2,
+						_List_Nil,
+						_List_fromArray(
+							[
+								elm_lang$html$Html$text('url')
+							])),
+						A2(
 						elm_lang$html$Html$div,
 						_List_Nil,
 						_List_fromArray(
@@ -5646,13 +5579,11 @@ var author$project$Main$main = elm_lang$browser$Browser$staticPage(
 								elm_lang$core$Debug$toString(url))
 							])),
 						A2(
-						elm_lang$html$Html$div,
+						elm_lang$html$Html$h2,
 						_List_Nil,
 						_List_fromArray(
 							[
-								elm_lang$html$Html$text(
-								elm_lang$core$Debug$toString(
-									A2(elm_lang$url$Url$Parser$parse, author$project$Main$parse1, url)))
+								elm_lang$html$Html$text('parsed')
 							])),
 						A2(
 						elm_lang$html$Html$div,
@@ -5661,7 +5592,7 @@ var author$project$Main$main = elm_lang$browser$Browser$staticPage(
 							[
 								elm_lang$html$Html$text(
 								elm_lang$core$Debug$toString(
-									A2(elm_lang$url$Url$Parser$parse, author$project$Main$parse2, url)))
+									A2(elm_lang$url$Url$Parser$parse, author$project$Main$docs, url)))
 							]))
 					]));
 		}

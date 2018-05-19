@@ -1,0 +1,2 @@
+#!/bin/bash
+~/elm make src/url-parser-simple.elm --output docs/build/url-parser-simple.js
